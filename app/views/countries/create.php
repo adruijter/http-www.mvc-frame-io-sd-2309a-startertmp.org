@@ -34,13 +34,18 @@
                 <input name="country" type="text" class="form-control" id="inputNameCountry" placeholder="Vul hier de naam van het land in" value="<?= $data['country']; ?>">
             
                 <div class="error">
-                    <?php if (isset($data['countryError'])) { echo $data['countryError']; } ?>
+                    <?= $data['countryError']; ?>
                 </div>
             </div>
 
             <div class="mb-3">
                 <label for="inputNameCapitalCity" class="form-label">Hoofdstad:</label>
                 <input name="capitalCity" type="text" class="form-control" id="inputNameCapitalCity" placeholder="Vul hier de naam van de hoofdstad in" value="<?= $data['capitalCity']; ?>" >
+            
+                <div class="error">
+                    <?= $data['capitalCityError']; ?>
+                </div>
+            
             </div>
 
             <div class="mb-3">

@@ -85,7 +85,13 @@ class Countries extends BaseController
              */
             $data = $this->validateCreateCountry($data);
 
-            if (empty($data['countryError'])) {
+            /**
+             * We checken of er geen Validatie Errors zijn
+             */
+            if (
+                empty($data['countryError']) 
+                && empty($data['capitalCityError'])
+            ) {
                 /**
                  * Roep de createCountry methode aan van het countryModel object waardoor
                  * de gegevens in de database worden opgeslagen
@@ -115,10 +121,13 @@ class Countries extends BaseController
     public function validateCreateCountry($data)
     {
         if ( empty($data['country'])) {
-            $data['countryError'] = "Dit is een verplicht in te vullen veld";
+            $data['countryError'] = "U bent verplicht een land in te vullen";
         }
         if ( strlen($data['country']) > 30) {
             $data['countryError'] = "Uw land heeft meer letters dan is toegestaan (minder 9) kies een ander land";
+        }
+        if ( empty($data['capitalCity'])) {
+            $data['capitalCityError'] = "U bent verplicht een hoofdstad in te vullen";
         }
 
         return $data;
