@@ -75,10 +75,10 @@ class Countries extends BaseController
             /**
              * Doe de post-waarden in het $data array
              */
-            $data['country'] = $_POST['country'];
-            $data['capitalCity'] = $_POST['capitalCity'];
-            $data['continent'] = $_POST['continent'];
-            $data['population'] = $_POST['population'];
+            $data['country'] = trim($_POST['country']);
+            $data['capitalCity'] = trim($_POST['capitalCity']);
+            $data['continent'] = trim($_POST['continent']);
+            $data['population'] = trim($_POST['population']);
 
             /**
              * Valideer de formuliervelden
@@ -116,6 +116,9 @@ class Countries extends BaseController
     {
         if ( empty($data['country'])) {
             $data['countryError'] = "Dit is een verplicht in te vullen veld";
+        }
+        if ( strlen($data['country']) > 30) {
+            $data['countryError'] = "Uw land heeft meer letters dan is toegestaan (minder 9) kies een ander land";
         }
 
         return $data;
