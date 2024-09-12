@@ -21,12 +21,12 @@ class Countries extends BaseController
                             <td>{$country->CapitalCity}</td>
                             <td>{$country->Continent}</td>
                             <td>" . number_format($country->Population, 0, ",", ".") . "</td>
-                            <td>
+                            <td class='text-center'>
                                 <a href='" . URLROOT . "/countries/update/{$country->Id}'>
                                     <i class='bi bi-pencil-square'></i>
                                 </a>
                             </td>
-                            <td>
+                            <td class='text-center'>
                                 <a href='" . URLROOT . "/countries/delete/{$country->Id}'>
                                     <i class='bi bi-trash'></i>
                                 </a>
@@ -52,7 +52,7 @@ class Countries extends BaseController
     public function create()
     {
         $data = [
-            'title' => 'Nieuw land toevoegen',
+            'title' => 'Voeg een nieuw land toe',
             'message' => '',
             'messageColor' => 'dark',
             'visibility' => 'display:none;',
@@ -91,6 +91,8 @@ class Countries extends BaseController
             if (
                 empty($data['countryError']) 
                 && empty($data['capitalCityError'])
+                && empty($data['continentError'])
+                && empty($data['populationError'])
             ) {
                 /**
                  * Roep de createCountry methode aan van het countryModel object waardoor
@@ -124,11 +126,21 @@ class Countries extends BaseController
             $data['countryError'] = "U bent verplicht een land in te vullen";
         }
         if ( strlen($data['country']) > 30) {
-            $data['countryError'] = "Uw land heeft meer letters dan is toegestaan (minder 9) kies een ander land";
+            $data['countryError'] = "Uw land heeft meer letters dan is toegestaan (minder 9 is toegestaan) kies een ander land";
         }
         if ( empty($data['capitalCity'])) {
             $data['capitalCityError'] = "U bent verplicht een hoofdstad in te vullen";
         }
+        if ( empty($data['continent'])) {
+            $data['continentError'] = "U bent verplicht een continent in te vullen";
+        }
+        if ( empty($data['population'])) {
+            $data['populationError'] = "U bent verplicht het aantal inwoners in te vullen";
+        }
+        // if ( is_string($data['population']))
+        // {
+        //     $data['populationError'] = "U bent verplicht een numeriek getal in te vullen";
+        // }
 
         return $data;
     }
