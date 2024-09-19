@@ -50,12 +50,24 @@
 
             <div class="mb-3">
                 <label for="inputNameContinent" class="form-label">Continent:</label>
-                <input name="continent" type="text" class="form-control" id="inputNameContinent" placeholder="Vul hier de naam van het continent in" value="<?= $data['continent']; ?>">
-            
+
+                <!-- Hier komt de select -->
+                <select name="continent" class="form-select" aria-label="Default select example">
+                    <option selected>Vul hier het continent in</option>
+                    <option <?= ($data['continent'] == 'Afrika') ? 'selected' : '';  ?> value="Afrika">Afrika</option>
+                    <option <?= ($data['continent'] == 'Antarctica') ? 'selected' : '';  ?> value="Antarctica">Antarctica</option>
+                    <option <?= ($data['continent'] == 'Azi&euml;') ? 'selected' : '';  ?> value="Azi&euml;">Azië</option>
+                    <option <?= ($data['continent'] == 'Europa') ? 'selected' : '';  ?> value="Europa">Europa</option>
+                    <option <?= ($data['continent'] == 'Noord-Amerika') ? 'selected' : '';  ?> value="Noord-Amerika">Noord-Amerika</option>
+                    <option <?= ($data['continent'] == 'Zuid-Amerika') ? 'selected' : '';  ?> value="Zuid-Amerika">Zuid-Amerika</option>
+                    <option <?= ($data['continent'] == 'Oceani&euml;') ? 'selected' : '';  ?> value="Oceani&euml;">Oceanië</option>
+                </select>
+
                 <div class="error">
                     <?= $data['continentError']; ?>
                 </div>
             </div>
+
 
             <div class="mb-3">
                 <label for="inputPopulation" class="form-label">Aantal inwoners:</label>

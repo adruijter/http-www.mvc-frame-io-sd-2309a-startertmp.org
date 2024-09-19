@@ -142,6 +142,12 @@ class Countries extends BaseController
         {
             $data['populationError'] = "U bent verplicht een numeriek getal in te vullen";
         }
+        if ( $data['population'] < 0 || $data['population'] > 4294967295) {
+            $data['populationError'] = "Uw aantal inwoners is te groot of negatief";
+        }
+        if  (!in_array($data['continent'], CONTINENTS)) {
+            $data['continentError'] = "Het door u opgegeven continent bestaat niet, kies er een uit de lijst";
+        }
 
         return $data;
     }
