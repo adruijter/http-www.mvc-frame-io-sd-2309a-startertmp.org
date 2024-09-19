@@ -59,7 +59,7 @@
 
             <div class="mb-3">
                 <label for="inputPopulation" class="form-label">Aantal inwoners:</label>
-                <input name="population" type="number" class="form-control" id="inputPopulation" placeholder="Vul hier het aantal mensen in woonachtig in het land" value="<?= $data['population']; ?>">
+                <input name="population" type="text" class="form-control" id="inputPopulation" placeholder="Vul hier het aantal mensen in woonachtig in het land" value="<?= $data['population']; ?>">
 
                 <div class="error">
                     <?= $data['populationError']; ?>

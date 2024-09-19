@@ -80,6 +80,7 @@ class Countries extends BaseController
             $data['continent'] = trim($_POST['continent']);
             $data['population'] = trim($_POST['population']);
 
+ 
             /**
              * Valideer de formuliervelden
              */
@@ -107,7 +108,7 @@ class Countries extends BaseController
                 /**
                  * Na het opslaan van de formulier wordt de gebruiker teruggeleid naar de index-pagina
                  */
-                header("Refresh:6; url=" . URLROOT . "/countries/index");
+                header("Refresh:1; url=" . URLROOT . "/countries/index");
             } else {
                 $data['visibility'] = '';
                 $data['message'] = FORM_DANGER;
@@ -137,10 +138,10 @@ class Countries extends BaseController
         if ( empty($data['population'])) {
             $data['populationError'] = "U bent verplicht het aantal inwoners in te vullen";
         }
-        // if ( is_string($data['population']))
-        // {
-        //     $data['populationError'] = "U bent verplicht een numeriek getal in te vullen";
-        // }
+        if ( !is_numeric($data['population']))
+        {
+            $data['populationError'] = "U bent verplicht een numeriek getal in te vullen";
+        }
 
         return $data;
     }
@@ -182,8 +183,8 @@ class Countries extends BaseController
            'message' => 'Het record is verwijderd. U wordt doorgestuurd naar de index-pagina.'
        ];
 
-       header("Refresh:3; " . URLROOT . "/countries/index");
+       header("Refresh:1; " . URLROOT . "/countries/index");
 
        $this->view('countries/delete', $data);
     }
-}
+} 
