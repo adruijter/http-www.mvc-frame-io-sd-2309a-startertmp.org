@@ -89,7 +89,7 @@ class Countries extends BaseController
              * Valideer de formuliervelden
              */
             $data = $this->validateCreateCountry($data);
-            // var_dump($data);
+            
             /**
              * We checken of er geen Validatie Errors zijn
              */
@@ -154,9 +154,6 @@ class Countries extends BaseController
             $data['continentError'] = "Het door u opgegeven continent bestaat niet, kies er een uit de lijst";
         }
         
-        // $input = '/^\d{4}[a-zA-Z]{2}$/';
-        // echo $data['zipcode'];
-        // echo !preg_match($input, $data['zipcode']);exit();
         // Hier komt de validatie voor de postcode met behulp van de preg_match functie en regular expressions 
         if (!preg_match('/^\d{4}[a-zA-Z]{2}$/', $data['zipcode'])) {
             $data['zipcodeError'] = "De postcode moet bestaan uit 4 cijfers en 2 letters";
