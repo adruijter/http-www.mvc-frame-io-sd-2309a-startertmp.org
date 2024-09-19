@@ -5,18 +5,18 @@
 <!-- Maak een nieuwe view aan voor deze link -->
 <div class="container">
     <div class="row mt-3">
-        <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-2"></div>
+        <div class="col-8">
             <h3><?= $data['title']; ?></h3>
             <p><a href="<?= URLROOT; ?>/Countries/create">Nieuw land toevoegen</a></p>
         </div>
-        <div class="col-3"></div>
+        <div class="col-2"></div>
     </div>
 
 
     <div class="row">
-        <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-2"></div>
+        <div class="col-8">
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -24,6 +24,7 @@
                         <th>Hoofdstad</th>
                         <th>Continent</th>
                         <th>Aantal Inwoners</th>
+                        <th>Postcode</th>
                         <th>Wijzig</th>
                         <th>Verwijder</th>
                     </tr>
@@ -34,7 +35,7 @@
             </table>
             <a href="<?= URLROOT; ?>/homepages/index">Homepage</a>
         </div>
-        <div class="col-3"></div>
+        <div class="col-2"></div>
     </div>
 </div>
 

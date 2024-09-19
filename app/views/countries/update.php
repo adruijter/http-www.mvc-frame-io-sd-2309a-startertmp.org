@@ -35,6 +35,11 @@
                         <input value="<?= $data['population']; ?>" name="population" type="text" class="form-control" id="inputPolulation" placeholder="Vul hier het aantal mensen in woonachtig in het land">
                     </div>
 
+                    <div class="mb-3">
+                        <label for="inputNameZipcode" class="form-label">Postcode:</label>
+                        <input value="<?= $data['zipcode']; ?>" name="zipcode" type="text" class="form-control" id="inputNameZipcode" placeholder="Vul hier uw Nederlandse postcode in">
+                    </div>
+
                     <input type="hidden" name="Id" value="<?= $data['Id']; ?>">
 
                     <div class="d-grid">

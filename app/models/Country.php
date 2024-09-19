@@ -27,6 +27,7 @@ class Country
                           ,CapitalCity
                           ,Continent
                           ,Population
+                          ,Zipcode
                     FROM   Country';
 
             /**
@@ -53,11 +54,13 @@ class Country
         $sql = 'INSERT INTO Country (Name
                                     ,CapitalCity
                                     ,Continent
-                                    ,Population)
+                                    ,Population
+                                    ,Zipcode)
                      VALUES     (:name
                                 ,:capitalcity
                                 ,:continent
-                                ,:population)';
+                                ,:population
+                                ,:zipcode)';
 
          /**
          * Maak de query $sql gereed voor het PDO database-object
@@ -71,6 +74,7 @@ class Country
         $this->db->bind(':capitalcity', $postArrayData['capitalCity'], PDO::PARAM_STR);
         $this->db->bind(':continent', $postArrayData['continent'], PDO::PARAM_STR);
         $this->db->bind(':population', $postArrayData['population'], PDO::PARAM_INT);
+        $this->db->bind(':zipcode', $postArrayData['zipcode'], PDO::PARAM_STR);
 
         /**
          * Voer de query uit zodat de gegevens worden weggeschreven naar de database
@@ -85,6 +89,7 @@ class Country
                      ,CapitalCity
                      ,Continent
                      ,Population
+                     ,Zipcode
                 FROM Country
                 WHERE Id = :id";
 
@@ -102,6 +107,7 @@ class Country
                       ,CapitalCity = :capitalcity
                       ,Continent = :continent
                       ,Population = :population
+                      ,Zipcode =:zipcode
                  WHERE Id = :id";
 
         $this->db->query($sql);
@@ -110,6 +116,7 @@ class Country
         $this->db->bind(':capitalcity', $postArrayData['capitalCity'], PDO::PARAM_STR);
         $this->db->bind(':continent', $postArrayData['continent'], PDO::PARAM_STR);
         $this->db->bind(':population', $postArrayData['population'], PDO::PARAM_INT);
+        $this->db->bind(':zipcode', $postArrayData['zipcode'], PDO::PARAM_STR);
         $this->db->bind(':id', $postArrayData['Id'], PDO::PARAM_INT);
 
         return $this->db->execute();        

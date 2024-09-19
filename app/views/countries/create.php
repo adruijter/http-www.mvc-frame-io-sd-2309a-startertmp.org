@@ -79,6 +79,16 @@
             
             </div>
 
+            <div class="mb-3">
+                <label for="inputNameZipCode" class="form-label">Postcode:</label>
+                <input name="zipcode" type="text" class="form-control" id="inputNameZipCode" placeholder="Vul hier de Nederlandse postcode waar je woont" value="<?= $data['zipcode']; ?>" >
+            
+                <div class="error">
+                    <?= $data['zipcodeError']; ?>
+                </div>
+            
+            </div>
+
             <div class="d-grid">
                 <button type="submit" class="btn btn-success">Sla op</button>
             </div>

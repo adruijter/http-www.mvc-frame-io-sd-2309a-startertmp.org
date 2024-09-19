@@ -12,7 +12,7 @@ class Countries extends BaseController
     public function index()
     {
         $countries = $this->countryModel->getCountries();
-
+        
         $dataRows = "";
 
         foreach ($countries as $country) {
@@ -21,6 +21,7 @@ class Countries extends BaseController
                             <td>{$country->CapitalCity}</td>
                             <td>{$country->Continent}</td>
                             <td>" . number_format($country->Population, 0, ",", ".") . "</td>
+                            <td>{$country->Zipcode}</td>
                             <td class='text-center'>
                                 <a href='" . URLROOT . "/countries/update/{$country->Id}'>
                                     <i class='bi bi-pencil-square'></i>
@@ -60,10 +61,12 @@ class Countries extends BaseController
             'capitalCity' => '',
             'continent' => '',
             'population' => '',
+            'zipcode' => '',
             'countryError' => '',
             'capitalCityError' => '',
             'continentError' => '',
-            'populationError' => ''
+            'populationError' => '',
+            'zipcodeError' => ''
         ];
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -79,13 +82,14 @@ class Countries extends BaseController
             $data['capitalCity'] = trim($_POST['capitalCity']);
             $data['continent'] = trim($_POST['continent']);
             $data['population'] = trim($_POST['population']);
+            $data['zipcode'] = trim($_POST['zipcode']);
 
  
             /**
              * Valideer de formuliervelden
              */
             $data = $this->validateCreateCountry($data);
-
+            // var_dump($data);
             /**
              * We checken of er geen Validatie Errors zijn
              */
@@ -94,6 +98,7 @@ class Countries extends BaseController
                 && empty($data['capitalCityError'])
                 && empty($data['continentError'])
                 && empty($data['populationError'])
+                && empty($data['zipcodeError'])
             ) {
                 /**
                  * Roep de createCountry methode aan van het countryModel object waardoor
@@ -148,7 +153,14 @@ class Countries extends BaseController
         if  (!in_array($data['continent'], CONTINENTS)) {
             $data['continentError'] = "Het door u opgegeven continent bestaat niet, kies er een uit de lijst";
         }
-
+        
+        // $input = '/^\d{4}[a-zA-Z]{2}$/';
+        // echo $data['zipcode'];
+        // echo !preg_match($input, $data['zipcode']);exit();
+        // Hier komt de validatie voor de postcode met behulp van de preg_match functie en regular expressions 
+        if (!preg_match('/^\d{4}[a-zA-Z]{2}$/', $data['zipcode'])) {
+            $data['zipcodeError'] = "De postcode moet bestaan uit 4 cijfers en 2 letters";
+        }
         return $data;
     }
 
@@ -175,7 +187,8 @@ class Countries extends BaseController
             'country' => $result->Name,
             'capitalCity' => $result->CapitalCity,
             'continent' => $result->Continent,
-            'population' => $result->Population
+            'population' => $result->Population,
+            'zipcode' => $result->Zipcode
         ];
 
         $this->view('countries/update', $data);
