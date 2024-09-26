@@ -35,107 +35,128 @@ class Country
              * Geef de opgehaalde informatie terug aan de controller
              */
             return $this->db->resultSet();
+
         } catch (Exception $e) {
             // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
-            echo 'Er is een fout opgetreden: ' . $e->getMessage();
+            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
         }
     }
 
     public function createCountry($postArrayData) 
     {
-        /**
-         * Maak een sql-query die de ingevulde gegevens van het formulier
-         * wegschrijft naar de database
-         */
-        $sql = 'INSERT INTO Country (Name
-                                    ,CapitalCity
-                                    ,Continent
-                                    ,Population
-                                    ,Zipcode)
-                     VALUES     (:name
-                                ,:capitalcity
-                                ,:continent
-                                ,:population
-                                ,:zipcode)';
-
-         /**
-         * Maak de query $sql gereed voor het PDO database-object
-         */
-        $this->db->query($sql);
-
-        /**
-         * We koppelen de waardes uit het formulier aan de parameters in de query
-         */
-        $this->db->bind(':name', $postArrayData['country'], PDO::PARAM_STR);
-        $this->db->bind(':capitalcity', $postArrayData['capitalCity'], PDO::PARAM_STR);
-        $this->db->bind(':continent', $postArrayData['continent'], PDO::PARAM_STR);
-        $this->db->bind(':population', $postArrayData['population'], PDO::PARAM_INT);
-        $this->db->bind(':zipcode', $postArrayData['zipcode'], PDO::PARAM_STR);
-
-        /**
-         * Voer de query uit zodat de gegevens worden weggeschreven naar de database
-         */
-        return $this->db->execute();
+        try {
+            /**
+             * Maak een sql-query die de ingevulde gegevens van het formulier
+             * wegschrijft naar de database
+             */
+            
+            $sql = 'CALL spCreateCountry(
+                :name, 
+                :capitalcity, 
+                :continent, 
+                :population, 
+                :zipcode
+            )';
+    
+             /**
+             * Maak de query $sql gereed voor het PDO database-object
+             */
+            $this->db->query($sql);
+    
+            /**
+             * We koppelen de waardes uit het formulier aan de parameters in de query
+             */
+            $this->db->bind(':name', $postArrayData['country'], PDO::PARAM_STR);
+            $this->db->bind(':capitalcity', $postArrayData['capitalCity'], PDO::PARAM_STR);
+            $this->db->bind(':continent', $postArrayData['continent'], PDO::PARAM_STR);
+            $this->db->bind(':population', $postArrayData['population'], PDO::PARAM_INT);
+            $this->db->bind(':zipcode', $postArrayData['zipcode'], PDO::PARAM_STR);
+    
+            /**
+             * Voer de query uit zodat de gegevens worden weggeschreven naar de database
+             */
+            return $this->db->execute();
+        } catch (Exception $e) {
+            // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
+            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
+        }
     }
 
     public function getCountry($countryId)
     {
+        try {
 
-        $sql = 'CALL spSelectCountryById(:id)';
+            $sql = 'CALL spSelectCountryById(:id)';
+    
+            $this->db->query($sql);
+    
+            $this->db->bind(':id', $countryId, PDO::PARAM_INT);
+    
+            return $this->db->single();
 
-        $this->db->query($sql);
+        } catch (Exception $e) {
+            // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
+            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
+        }
 
-        $this->db->bind(':id', $countryId, PDO::PARAM_INT);
-
-        return $this->db->single();
     }
 
     public function updateCountry($postArrayData)
     {
+        try {
+            $sql = 'CALL spUpdateCountryById(
+                        :id, 
+                        :name, 
+                        :capitalcity, 
+                        :continent, 
+                        :population, 
+                        :zipcode
+                    )';        
+    
+            $this->db->query($sql);
+    
+            $this->db->bind(':name', $postArrayData['country'], PDO::PARAM_STR);
+            $this->db->bind(':capitalcity', $postArrayData['capitalCity'], PDO::PARAM_STR);
+            $this->db->bind(':continent', $postArrayData['continent'], PDO::PARAM_STR);
+            $this->db->bind(':population', $postArrayData['population'], PDO::PARAM_INT);
+            $this->db->bind(':zipcode', $postArrayData['zipcode'], PDO::PARAM_STR);
+            $this->db->bind(':id', $postArrayData['Id'], PDO::PARAM_INT);
+    
+            return $this->db->execute();        
+        } catch (Exception $e) {
+            // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
+            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
+        }
 
-        $sql = 'CALL spUpdateCountryById(
-                    :id, 
-                    :name, 
-                    :capitalcity, 
-                    :continent, 
-                    :population, 
-                    :zipcode
-                )';
-
-        $this->db->query($sql);
-
-        $this->db->bind(':name', $postArrayData['country'], PDO::PARAM_STR);
-        $this->db->bind(':capitalcity', $postArrayData['capitalCity'], PDO::PARAM_STR);
-        $this->db->bind(':continent', $postArrayData['continent'], PDO::PARAM_STR);
-        $this->db->bind(':population', $postArrayData['population'], PDO::PARAM_INT);
-        $this->db->bind(':zipcode', $postArrayData['zipcode'], PDO::PARAM_STR);
-        $this->db->bind(':id', $postArrayData['Id'], PDO::PARAM_INT);
-
-        return $this->db->execute();        
     }
 
     public function deleteCountry($countryId)
     {
-        /**
-         * Maak een sql-query die een record uit de database verwijdert
-         */
-
-        $sql = 'CALL spDeleteCountryById(:id)';
-
-        /**
-         * Prepare de query voor het PDO object
-         */
-        $this->db->query($sql);
-
-        /**
-         * Koppel de parameter aan de query
-         */
-        $this->db->bind(':id', $countryId, PDO::PARAM_INT);
-
-        /**
-         * Voer de query uit
-         */ 
-        return $this->db->execute();
+        try {
+            /**
+             * Maak een sql-query die een record uit de database verwijdert
+             */
+    
+            $sql = 'CALL spDeleteCountryById(:id)';
+    
+            /**
+             * Prepare de query voor het PDO object
+             */
+            $this->db->query($sql);
+    
+            /**
+             * Koppel de parameter aan de query
+             */
+            $this->db->bind(':id', $countryId, PDO::PARAM_INT);
+    
+            /**
+             * Voer de query uit
+             */ 
+            return $this->db->execute();
+        } catch (Exception $e) {
+            // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
+            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
+        }
     }
 
 }
