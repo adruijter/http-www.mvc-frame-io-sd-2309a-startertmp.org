@@ -11,33 +11,31 @@
 use `mvcframework-io-sd-2309a-startertmp`;
 
 -- Verwijder de oude stored procedure
-DROP PROCEDURE IF EXISTS spUpdateCountryById;
+DROP PROCEDURE IF EXISTS spSelectCountryById;
 
 -- Verander even tijdelijk de opdrachtprompt naar //
 DELIMITER //
 
-CREATE PROCEDURE spUpdateCountryById(
-    IN Id           INT UNSIGNED,
-    IN Name         VARCHAR(250),
-    IN CapitalCity  VARCHAR(250),
-    IN Continent    VARCHAR(250),
-    IN Population   INT UNSIGNED,
-    IN Zipcode      VARCHAR(6)
+CREATE PROCEDURE spSelectCountryById(
+    IN Id INT UNSIGNED
 )
 BEGIN
-    UPDATE  Country AS  COUN
-    SET     COUN.Name = Name,
-            COUN.CapitalCity = CapitalCity,
-            COUN.Continent = Continent,
-            COUN.Population = Population,
-            COUN.Zipcode = Zipcode
+
+    SELECT  COUN.Id,
+            COUN.Name,
+            COUN.CapitalCity,
+            COUN.Continent,
+            COUN.Population,
+            COUN.Zipcode
+    FROM    Country AS COUN
     WHERE   COUN.Id = Id;
+
 END //
 DELIMITER ;
 
 /************* debug code stored procedure **************
 
-CALL spUpdateCountryById(2, 'Nederland', 'Amsterdam', 'Europa', 18000000, '2309CB');
+CALL spSelectCountryById(2);
 
 ********************************************************/
 
