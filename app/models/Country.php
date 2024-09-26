@@ -24,7 +24,7 @@ class Country
              * We gebruiken de stored procedure spGetCountries()
              */
 
-            $sql = 'CALL spGetCountries()';
+            $sql = 'CALL spGetAllCountries()';
 
             /**
              * Prepare de query voor het PDO object
@@ -80,14 +80,16 @@ class Country
 
     public function getCountry($countryId)
     {
-        $sql = "SELECT Id
-                     ,Name
-                     ,CapitalCity
-                     ,Continent
-                     ,Population
-                     ,Zipcode
-                FROM Country
-                WHERE Id = :id";
+        // $sql = "SELECT Id
+        //              ,Name
+        //              ,CapitalCity
+        //              ,Continent
+        //              ,Population
+        //              ,Zipcode
+        //         FROM Country
+        //         WHERE Id = :id";
+
+        $sql = 'CALL spUpdateCountryById(:id)';
 
         $this->db->query($sql);
 

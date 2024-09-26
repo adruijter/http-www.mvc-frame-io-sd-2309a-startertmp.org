@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Gegenereerd op: 03 sep 2024 om 06:48
+-- Gegenereerd op: 26 sep 2024 om 09:49
 -- Serverversie: 9.0.1
 -- PHP-versie: 8.3.11
 
@@ -35,24 +35,24 @@ CREATE TABLE IF NOT EXISTS `country` (
   `Name` varchar(250) NOT NULL,
   `CapitalCity` varchar(250) NOT NULL,
   `Continent` varchar(250) NOT NULL,
-  `Population` int NOT NULL,
+  `Population` int UNSIGNED NOT NULL,
+  `Zipcode` varchar(6) NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `country`
 --
 
-INSERT INTO `country` (`Id`, `Name`, `CapitalCity`, `Continent`, `Population`) VALUES
-(2, 'Tanzaniaa', 'Dodoma', 'Afrika', 63590000),
-(4, 'Japan', 'Tokio', 'Azi&euml;', 125700000),
-(5, 'Zwitserlandd', 'Bern', 'Europa', 8703000),
-(6, 'Noorwegen', 'Oslo', 'Europa', 5550203),
-(11, 'Litouwen', 'Vilnius', 'Europa', 340000000),
-(15, 'Marokko', 'Rabat', 'Afrika', 37500000),
-(16, 'Nepal', 'Kathmandu', 'Azi&euml;', 30000000),
-(17, 'Chili', 'Santiago', 'Zuid-Amerika', 18276870),
-(18, 'Japan', 'Tokio', 'Azi&euml;', 125700000);
+INSERT INTO `country` (`Id`, `Name`, `CapitalCity`, `Continent`, `Population`, `Zipcode`) VALUES
+(2, 'Tanzania', 'Dodoma', 'Afrika', 63590000, '1234SD'),
+(4, 'Japan', 'Tokio', 'Azi&euml;', 125700000, ''),
+(5, 'Zwitserlandd', 'Bern', 'Europa', 8703000, ''),
+(6, 'Noorwegen', 'Oslo', 'Europa', 5550203, ''),
+(11, 'Litouwen', 'Vilnius', 'Europa', 340000000, ''),
+(15, 'Marokko', 'Rabat', 'Afrika', 37500000, ''),
+(16, 'Nepal', 'Kathmandu', 'Azi&euml;', 30000000, ''),
+(17, 'Chili', 'Santiago', 'Zuid-Amerika', 18276870, '');
 
 -- --------------------------------------------------------
 
