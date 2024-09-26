@@ -21,14 +21,10 @@ class Country
         try {
             /**
              * Maak een sql-query die de gewenste informatie opvraagt uit de database
+             * We gebruiken de stored procedure spGetCountries()
              */
-            $sql = 'SELECT Id
-                          ,Name
-                          ,CapitalCity
-                          ,Continent
-                          ,Population
-                          ,Zipcode
-                    FROM   Country';
+
+            $sql = 'CALL spGetCountries()';
 
             /**
              * Prepare de query voor het PDO object
