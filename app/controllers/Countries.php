@@ -12,6 +12,8 @@ class Countries extends BaseController
     public function index()
     {
         $countries = $this->countryModel->getCountries();
+
+        var_dump($countries);
         
         $dataRows = "";
 

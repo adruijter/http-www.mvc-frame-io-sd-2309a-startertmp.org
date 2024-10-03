@@ -24,7 +24,7 @@ class Country
              * We gebruiken de stored procedure spGetCountries()
              */
 
-            $sql = 'CALL spGetAllCountries()';
+            $sql = 'CALL spGeAllCountries()';
 
             /**
              * Prepare de query voor het PDO object
@@ -38,8 +38,8 @@ class Country
 
         } catch (Exception $e) {
             // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
-            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
-            logger();
+            // echo 'Er is een fout opgetreden door: ' . $e->getMessage();
+            logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
         }
     }
 
