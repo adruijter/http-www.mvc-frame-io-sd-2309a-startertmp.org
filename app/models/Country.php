@@ -24,7 +24,7 @@ class Country
              * We gebruiken de stored procedure spGetCountries()
              */
 
-            $sql = 'CALL spGeAllCountries()';
+            $sql = 'CALL spGetAllCountries()';
 
             /**
              * Prepare de query voor het PDO object

@@ -4,6 +4,16 @@
 
 <!-- Maak een nieuwe view aan voor deze link -->
 <div class="container">
+    <div class="row mt-3 text-center" style='<?= $data['visibility']; ?>'>
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="alert alert-<?= $data['messageColor']; ?>" role="alert">
+                    <?= $data['message']; ?>
+                </div>
+            </div>
+            <div class="col-2"></div>
+   </div>
+
     <div class="row mt-3">
         <div class="col-2"></div>
         <div class="col-8">
