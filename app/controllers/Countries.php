@@ -11,36 +11,54 @@ class Countries extends BaseController
 
     public function index()
     {
-        $countries = $this->countryModel->getCountries();
-
-        var_dump($countries);
-        
-        $dataRows = "";
-
-        foreach ($countries as $country) {
-            $dataRows .= "<tr>
-                            <td>{$country->Name}</td>
-                            <td>{$country->CapitalCity}</td>
-                            <td>{$country->Continent}</td>
-                            <td>" . number_format($country->Population, 0, ",", ".") . "</td>
-                            <td>{$country->Zipcode}</td>
-                            <td class='text-center'>
-                                <a href='" . URLROOT . "/countries/update/{$country->Id}'>
-                                    <i class='bi bi-pencil-square'></i>
-                                </a>
-                            </td>
-                            <td class='text-center'>
-                                <a href='" . URLROOT . "/countries/delete/{$country->Id}'>
-                                    <i class='bi bi-trash'></i>
-                                </a>
-                            </td>            
-                        </tr>";
-        }
-
         $data = [
             'title' => 'Landen van de Wereld',
-            'dataRows' => $dataRows
+            'dataRows' => NULL,
+            'message' => NULL,
+            'messageColor' => NULL,
+            'visibility' => 'display:none'
         ];
+
+        $countries = $this->countryModel->getCountries();
+
+        if (is_null($countries)) {
+            //Foutmelding en in de tabel geen records
+            $data['message'] = TRY_CATCH_ERROR;
+            $data['messageColor'] = FORM_DANGER_COLOR;
+            $data['visibility'] = '';
+            $data['dataRows'] = "<tr>
+            <td class='text-center' colspan='7'>Er zijn geen landen bekent</td>
+            </tr>";
+            
+            header('Refresh:2; ' . URLROOT . '/homepages/index');
+        } else {
+            $dataRows = "";
+    
+            foreach ($countries as $country) {
+                $dataRows .= "<tr>
+                                <td>{$country->Name}</td>
+                                <td>{$country->CapitalCity}</td>
+                                <td>{$country->Continent}</td>
+                                <td>" . number_format($country->Population, 0, ",", ".") . "</td>
+                                <td>{$country->Zipcode}</td>
+                                <td class='text-center'>
+                                    <a href='" . URLROOT . "/countries/update/{$country->Id}'>
+                                        <i class='bi bi-pencil-square'></i>
+                                    </a>
+                                </td>
+                                <td class='text-center'>
+                                    <a href='" . URLROOT . "/countries/delete/{$country->Id}'>
+                                        <i class='bi bi-trash'></i>
+                                    </a>
+                                </td>            
+                            </tr>";
+
+                $data['dataRows'] = $dataRows;
+            }
+        }
+        
+
+        
 
         $this->view('countries/index', $data);
     }
