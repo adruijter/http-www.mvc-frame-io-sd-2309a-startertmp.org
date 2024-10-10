@@ -50,7 +50,7 @@ class Country
              * wegschrijft naar de database
              */
             
-            $sql = 'CALL spreateCountry(
+            $sql = 'CALL spCreateCountry(
                 :name, 
                 :capitalcity, 
                 :continent, 
