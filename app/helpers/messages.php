@@ -8,4 +8,6 @@ define('FORM_SUCCESS_COLOR', 'success');
 
 define('TRY_CATCH_ERROR', 'Er is een fout opgetreden');
 
+define('ERROR_SP_CREATE_COUNTRY', 'Er is fout opgetreden in de database, u kunt geen land toevoegen');
+
 ?>

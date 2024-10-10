@@ -50,6 +50,7 @@ class Countries extends BaseController
             'message' => '',
             'messageColor' => 'dark',
             'visibility' => 'display:none;',
+            'disableButton' => '',
             'country' => '',
             'capitalCity' => '',
             'continent' => '',
@@ -99,14 +100,25 @@ class Countries extends BaseController
                  */
                 $result = $this->countryModel->createCountry($_POST);
 
-                $data['visibility'] = '';
-                $data['message'] = FORM_SUCCESS;
-                $data['messageColor'] = FORM_SUCCESS_COLOR;
+                /**
+                 * Als er een fout is in de modelmethod dan wordt dit gelogd en gemeld
+                 * aan de gebruiker
+                 */
+                if (is_null($result)) {
+                    $data['visibility'] = 'flex';
+                    $data['message'] = ERROR_SP_CREATE_COUNTRY;
+                    $data['messageColor'] = FORM_DANGER_COLOR;
+                    $data['disableButton'] = 'disabled';
+                } else {
+                    $data['visibility'] = '';
+                    $data['message'] = FORM_SUCCESS;
+                    $data['messageColor'] = FORM_SUCCESS_COLOR;
 
+                }
                 /**
                  * Na het opslaan van de formulier wordt de gebruiker teruggeleid naar de index-pagina
                  */
-                header("Refresh:1; url=" . URLROOT . "/countries/index");
+                header("Refresh:3; url=" . URLROOT . "/countries/index");
             } else {
                 $data['visibility'] = '';
                 $data['message'] = FORM_DANGER;

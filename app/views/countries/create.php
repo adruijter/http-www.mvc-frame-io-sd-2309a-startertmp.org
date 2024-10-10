@@ -4,7 +4,7 @@
 <!-- Maak een formulier om gegevens in de Country tabel te kunnen opslaan -->
 
 <div class="container">
-  <div class="row mt-3" style='<?= $data['visibility']; ?>'>
+  <div class="row mt-3 text-center" style='<?= $data['visibility']; ?>'>
         <div class="col-3"></div>
         <div class="col-6">
             <div class="alert alert-<?= $data['messageColor']; ?>" role="alert">
@@ -90,7 +90,7 @@
             </div>
 
             <div class="d-grid">
-                <button type="submit" class="btn btn-success">Sla op</button>
+                <button type="submit" class="btn btn-success" <?= $data['disableButton']; ?> >Sla op</button>
             </div>
         </form>
     </div>
