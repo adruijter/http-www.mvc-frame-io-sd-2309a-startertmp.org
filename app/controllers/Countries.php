@@ -26,39 +26,12 @@ class Countries extends BaseController
             $data['message'] = TRY_CATCH_ERROR;
             $data['messageColor'] = FORM_DANGER_COLOR;
             $data['visibility'] = '';
-            $data['dataRows'] = "<tr>
-            <td class='text-center' colspan='7'>Er zijn geen landen bekent</td>
-            </tr>";
+            $data['dataRows'] = NULL;
             
-            header('Refresh:2; ' . URLROOT . '/homepages/index');
+            header('Refresh:3; ' . URLROOT . '/homepages/index');
         } else {
-            $dataRows = "";
-    
-            foreach ($countries as $country) {
-                $dataRows .= "<tr>
-                                <td>{$country->Name}</td>
-                                <td>{$country->CapitalCity}</td>
-                                <td>{$country->Continent}</td>
-                                <td>" . number_format($country->Population, 0, ",", ".") . "</td>
-                                <td>{$country->Zipcode}</td>
-                                <td class='text-center'>
-                                    <a href='" . URLROOT . "/countries/update/{$country->Id}'>
-                                        <i class='bi bi-pencil-square'></i>
-                                    </a>
-                                </td>
-                                <td class='text-center'>
-                                    <a href='" . URLROOT . "/countries/delete/{$country->Id}'>
-                                        <i class='bi bi-trash'></i>
-                                    </a>
-                                </td>            
-                            </tr>";
-
-                $data['dataRows'] = $dataRows;
-            }
-        }
-        
-
-        
+                $data['dataRows'] = $countries;
+        }       
 
         $this->view('countries/index', $data);
     }

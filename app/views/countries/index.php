@@ -23,7 +23,6 @@
         <div class="col-2"></div>
     </div>
 
-
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
@@ -40,7 +39,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?= $data['dataRows']; ?>
+                    <?php if (is_null($data['dataRows'])) { ?>
+                        <tr>
+                            <td class='text-center' colspan='7'>Er zijn geen landen bekent</td>
+                        </tr>                    
+                    <?php } else {
+                                    foreach ($data['dataRows'] as $country) { ?>
+                                    <tr>
+                                        <td><?= $country->Name ?></td>
+                                        <td><?= $country->CapitalCity ?></td>
+                                        <td><?= $country->Continent ?></td>
+                                        <td><?= number_format($country->Population, 0, ",", ".") ?></td>
+                                        <td><?= $country->Zipcode ?></td>
+                                        <td class='text-center'>
+                                            <a href='<?= URLROOT  ?>/countries/update/<?= $country->Id ?>'>
+                                                <i class='bi bi-pencil-square'></i>
+                                            </a>
+                                        </td>
+                                        <td class='text-center'>
+                                            <a href='<?= URLROOT ?>/countries/delete/<?= $country->Id ?>'>
+                                                <i class='bi bi-trash'></i>
+                                            </a>
+                                        </td>            
+                                    </tr>
+                                <?php }} ?>
                 </tbody>
             </table>
             <a href="<?= URLROOT; ?>/homepages/index">Homepage</a>
