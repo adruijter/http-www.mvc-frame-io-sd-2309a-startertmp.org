@@ -16,7 +16,7 @@ class Countries extends BaseController
             'dataRows' => NULL,
             'message' => NULL,
             'messageColor' => NULL,
-            'visibility' => 'display:none'
+            'messageVisibility' => 'display:none'
         ];
 
         $countries = $this->countryModel->getCountries();
@@ -25,7 +25,7 @@ class Countries extends BaseController
             //Foutmelding en in de tabel geen records
             $data['message'] = TRY_CATCH_ERROR;
             $data['messageColor'] = FORM_DANGER_COLOR;
-            $data['visibility'] = '';
+            $data['messageVisibility'] = 'flex';
             $data['dataRows'] = NULL;
             
             header('Refresh:3; ' . URLROOT . '/homepages/index');
@@ -49,7 +49,7 @@ class Countries extends BaseController
             'title' => 'Voeg een nieuw land toe',
             'message' => '',
             'messageColor' => 'dark',
-            'visibility' => 'display:none;',
+            'messageVisibility' => 'display:none;',
             'disableButton' => '',
             'country' => '',
             'capitalCity' => '',
@@ -105,12 +105,12 @@ class Countries extends BaseController
                  * aan de gebruiker
                  */
                 if (is_null($result)) {
-                    $data['visibility'] = 'flex';
+                    $data['messageVisibility'] = 'flex';
                     $data['message'] = ERROR_SP_CREATE_COUNTRY;
                     $data['messageColor'] = FORM_DANGER_COLOR;
                     $data['disableButton'] = 'disabled';
                 } else {
-                    $data['visibility'] = '';
+                    $data['messageVisibility'] = '';
                     $data['message'] = FORM_SUCCESS;
                     $data['messageColor'] = FORM_SUCCESS_COLOR;
 
@@ -120,7 +120,7 @@ class Countries extends BaseController
                  */
                 header("Refresh:3; url=" . URLROOT . "/countries/index");
             } else {
-                $data['visibility'] = '';
+                $data['messageVisibility'] = '';
                 $data['message'] = FORM_DANGER;
                 $data['messageColor'] = FORM_DANGER_COLOR;
 
@@ -244,9 +244,10 @@ class Countries extends BaseController
 
     public function delete($countryId)
     {
-       $result = $this->countryModel->deleteCountry($countryId);
+       $result = $this->countryModel->deleteCountry($countryId);       
 
        $data = [
+           'title' => 'Landen van de wereld',
            'message' => is_null($result) ? 'Er is een fout opgetreden het record is niet verwijderd' : 'Het record is verwijderd, u wordt doorgestuurd naar het overzicht',
            'messageVisibility' => is_null($result) ? 'flex' : 'flex',
            'messageColor' => is_null($result) ? 'danger' : 'success',
@@ -254,6 +255,22 @@ class Countries extends BaseController
 
        header("Refresh:3; " . URLROOT . "/countries/index");
 
-       $this->view('countries/delete', $data);
+    //    $this->view('countries/delete', $data);
+
+        $countries = $this->countryModel->getCountries();
+
+        if (is_null($countries)) {
+            //Foutmelding en in de tabel geen records
+            $data['message'] = TRY_CATCH_ERROR;
+            $data['messageColor'] = FORM_DANGER_COLOR;
+            $data['messageVisibility'] = '';
+            $data['dataRows'] = NULL;
+            
+            header('Refresh:3; ' . URLROOT . '/homepages/index');
+        } else {
+                $data['dataRows'] = $countries;
+        }       
+
+        $this->view('countries/index', $data);
     }
 } 

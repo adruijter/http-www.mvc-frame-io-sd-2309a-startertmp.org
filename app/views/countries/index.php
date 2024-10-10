@@ -4,7 +4,7 @@
 
 <!-- Maak een nieuwe view aan voor deze link -->
 <div class="container">
-    <div class="row mt-3" style='<?= $data['visibility']; ?>'>
+    <div class="row mt-3" style='<?= $data['messageVisibility']; ?>'>
             <div class="col-2"></div>
             <div class="col-8 text-center">
                 <div class="alert alert-<?= $data['messageColor']; ?>" role="alert">
