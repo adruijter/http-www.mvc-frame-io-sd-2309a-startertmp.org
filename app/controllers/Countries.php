@@ -247,10 +247,12 @@ class Countries extends BaseController
        $result = $this->countryModel->deleteCountry($countryId);
 
        $data = [
-           'message' => 'Het record is verwijderd. U wordt doorgestuurd naar de index-pagina.'
+           'message' => is_null($result) ? 'Er is een fout opgetreden het record is niet verwijderd' : 'Het record is verwijderd, u wordt doorgestuurd naar het overzicht',
+           'messageVisibility' => is_null($result) ? 'flex' : 'flex',
+           'messageColor' => is_null($result) ? 'danger' : 'success',
        ];
 
-       header("Refresh:1; " . URLROOT . "/countries/index");
+       header("Refresh:3; " . URLROOT . "/countries/index");
 
        $this->view('countries/delete', $data);
     }
