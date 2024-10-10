@@ -168,30 +168,76 @@ class Countries extends BaseController
 
     public function update($countryId)
     {
+        $result = $this->countryModel->getCountry($countryId) ?? header("Refresh:3; url=" . URLROOT . "/countries/index");
+
+        $data = [
+            'title' => 'Wijzig land',
+            'message' => is_null($result) ? 'Er is een fout opgetreden, wijzigen is niet mogelijk' : '',
+            'messageVisibility' => is_null($result) ? 'flex' : 'none',
+            'messageColor' => is_null($result) ? 'danger' : '',
+            'disableButton' => is_null($result) ? 'disabled' : '',
+            'Id' => $result->Id ?? '',
+            'country' => $result->Name ?? '-',
+            'capitalCity' => $result->CapitalCity ?? '-',
+            'continent' => $result->Continent ?? '-',
+            'population' => $result->Population ?? '-',
+            'zipcode' => $result->Zipcode ?? '-',
+            'countryError' => '',
+            'capitalCityError' => '',
+            'continentError' => '',
+            'populationError' => '',
+            'zipcodeError' => ''
+        ];
+
         if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            $this->countryModel->updateCountry($_POST);
+            $data['country'] = trim($_POST['country']);
+            $data['capitalCity'] = trim($_POST['capitalCity']);
+            $data['continent'] = trim($_POST['continent']);
+            $data['population'] = trim($_POST['population']);
+            $data['zipcode'] = trim($_POST['zipcode']);
 
-            echo '<div class="alert alert-success" role="alert">
-                    Het land is gewijzigd. U wordt doorgestuurd naar de index-pagina.
-                </div>';
-                
-            header("Refresh:3; url=" . URLROOT . "/countries/index");
+            $data = $this->validateCreateCountry($data);
+
+            /**
+             * Wanneer alle error-key values leeg zijn dan kunnen we de update uitvoeren
+             */
+
+            if (
+                empty($data['countryError'])
+                && empty($data['capitalCityError'])
+                && empty($data['continentError'])
+                && empty($data['populationError'])
+                && empty($data['zipcodeError'])
+            ) {
+                $result = $this->countryModel->updateCountry($_POST);
+
+                if (is_null($result)) {
+                    $data['messageVisibility'] = 'flex';
+                    $data['message'] = 'Het updaten is niet gelukt';
+                    $data['messageColor'] = 'danger';
+                    $data['disableButton'] = 'disabled';
+                } else {
+                    $data['messageVisibility'] = 'flex';
+                    $data['message'] = 'Het updaten is gelukt';
+                    $data['messageColor'] = 'success';
+                }
+                header("Refresh:3; url=" . URLROOT . "/countries/index");
+            } else {
+                $data['messageVisibility'] = 'flex';
+                $data['message'] = 'U heeft enkele verkeerde waardes ingevuld';
+                $data['messageColor'] = 'danger';
+            }
+            $this->view('countries/update', $data);            
+            // header("Refresh:3; url=" . URLROOT . "/countries/index");
         }
-
-        $result = $this->countryModel->getCountry($countryId);
-
-        $data = [
-            'title' => 'Wijzig land',
-            'Id' => $result->Id,
-            'country' => $result->Name,
-            'capitalCity' => $result->CapitalCity,
-            'continent' => $result->Continent,
-            'population' => $result->Population,
-            'zipcode' => $result->Zipcode
-        ];
+            
+            
+            
+            
+        
 
         $this->view('countries/update', $data);
     }

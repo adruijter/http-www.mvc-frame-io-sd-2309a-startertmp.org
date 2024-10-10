@@ -96,7 +96,7 @@ class Country
 
         } catch (Exception $e) {
             // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
-            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
+            logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
         }
 
     }
@@ -125,7 +125,7 @@ class Country
             return $this->db->execute();        
         } catch (Exception $e) {
             // Behandel de uitzondering hier, bijvoorbeeld loggen of een foutmelding weergeven
-            echo 'Er is een fout opgetreden door: ' . $e->getMessage();
+            logger(__LINE__, __METHOD__, __FILE__, $e->getMessage());
         }
 
     }
