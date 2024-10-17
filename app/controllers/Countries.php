@@ -100,13 +100,13 @@ class Countries extends BaseController
                  */
                 if (is_null($result)) {
                     $data['messageVisibility'] = 'flex';
-                    $data['message'] = ERROR_SP_CREATE_COUNTRY;
-                    $data['messageColor'] = FORM_DANGER_COLOR;
+                    $data['message'] = 'Er is fout opgetreden in de database, u kunt geen land toevoegen';
+                    $data['messageColor'] = 'success';
                     $data['disableButton'] = 'disabled';
                 } else {
                     $data['messageVisibility'] = '';
-                    $data['message'] = FORM_SUCCESS;
-                    $data['messageColor'] = FORM_SUCCESS_COLOR;
+                    $data['message'] = 'Uw gegevens zijn opgeslagen. U wordt doorgestuurd naar de index-pagina.';
+                    $data['messageColor'] = 'success';
 
                 }
                 /**
@@ -115,8 +115,8 @@ class Countries extends BaseController
                 header("Refresh:3; url=" . URLROOT . "/countries/index");
             } else {
                 $data['messageVisibility'] = '';
-                $data['message'] = FORM_DANGER;
-                $data['messageColor'] = FORM_DANGER_COLOR;
+                $data['message'] = 'Er zijn één of meerdere velden niet goed ingevuld';
+                $data['messageColor'] = 'danger';
 
                 $this->view('countries/create', $data);
             }
