@@ -7,6 +7,7 @@
     require_once 'libraries/BaseController.php';
     require_once 'libraries/Database.php';
     require_once 'helpers/functions.php';
+    require_once 'validators/CountriesValidator.php';
     require_once 'config/config.php';
     require_once 'config/constants.php';
     require_once 'helpers/messages.php';
