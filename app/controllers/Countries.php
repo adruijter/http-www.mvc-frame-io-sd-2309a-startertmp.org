@@ -114,7 +114,7 @@ class Countries extends BaseController
                  */
                 header("Refresh:3; url=" . URLROOT . "/countries/index");
             } else {
-                $data['messageVisibility'] = '';
+                $data['messageVisibility'] = 'flex';
                 $data['message'] = 'Er zijn één of meerdere velden niet goed ingevuld';
                 $data['messageColor'] = 'danger';
 
